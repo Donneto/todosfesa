@@ -1,13 +1,14 @@
 // Dependencies
-const gulp = require('gulp');
-const sass = require('gulp-sass');
-const cssnano = require('gulp-cssnano');
-const sourcemaps = require('gulp-sourcemaps');
-const watch = require('gulp-watch');
-const combinemq = require('gulp-combine-mq');
-const webpack = require('webpack-stream');
-const gutil = require('gutil');
-const plumber = require('gulp-plumber');
+import gulp from 'gulp';
+import sass from 'gulp-sass';
+import cssnano from 'gulp-cssnano';
+import sourcemaps from 'gulp-sourcemaps';
+import watch from 'gulp-watch';
+import combinemq from 'gulp-combine-mq';
+import webpack from 'webpack-stream';
+import gutil from 'gutil';
+import plumber from 'gulp-plumber';
+import uglifyPlugin from 'uglifyjs-webpack-plugin';
 
 // Local Variables
 const internals = {};
@@ -43,11 +44,12 @@ gulp.task('js_bundler', () => {
 					exclude: /(node_modules|bower_components)/,
 					loader: 'babel-loader',
 					query: {
-						presets: ['es2015']
+						presets: ['es2015','react','stage-0']
 					}
 				}
 			]
 		},
+		plugins: [new uglifyPlugin()],
 		eslint: {
 			failOnWarning: false,
 			failOnError: false

@@ -1,3 +1,7 @@
-import logger from './modules/logger';
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-logger();
+ReactDOM.render(
+  <h1>Hello, worldsssssss!</h1>,
+  document.getElementById('root')
+);
