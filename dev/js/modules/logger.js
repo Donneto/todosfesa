@@ -1,5 +1,4 @@
 export default () => {
-	const x = 2;
 
-	console.log('test');
+  console.log('test');
 };

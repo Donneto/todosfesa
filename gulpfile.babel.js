@@ -9,6 +9,7 @@ import webpack from 'webpack-stream';
 import gutil from 'gutil';
 import plumber from 'gulp-plumber';
 import uglifyPlugin from 'uglifyjs-webpack-plugin';
+import notify from 'gulp-notify';
 
 // Local Variables
 const internals = {};
@@ -16,13 +17,27 @@ const internals = {};
 // Configuration
 internals.supportedBrowsers = [ 'last 2 versions' ];
 
+// Error Handler
+internals.onError = function(error) {
+    notify({
+         title: 'Asset compiling error',
+         message: 'Check the console for details.'
+     }).write(error.message);
+
+	console.log(error.message); 
+	this.emit('end');	
+};
+
+// Destructuring internals
+const { onError, supportedBrowsers } = internals;
+
 gulp.task('sass', () => {
 	return gulp.src('./dev/sass/**/master.scss')
 		.pipe(sourcemaps.init())
 		.pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
 		.pipe(combinemq())
 		.pipe(cssnano({
-            autoprefixer: { browsers: internals.supportedBrowsers, add: true }
+            autoprefixer: { browsers: supportedBrowsers, add: true }
         }))
         .pipe(sourcemaps.write('maps/'))
 		.pipe(gulp.dest('./build/css'));
@@ -33,6 +48,7 @@ gulp.task('js_bundler', () => {
 	.pipe(plumber())
     .pipe(webpack({
 		output: { filename: 'bundle.js' },
+		quiet: true,
 		module: {
 			preLoaders: [
 				// Javascript
@@ -54,7 +70,7 @@ gulp.task('js_bundler', () => {
 			failOnWarning: false,
 			failOnError: false
 		}
-    }))
+    }).on('error', onError ))
     .pipe(gulp.dest('./build/js/'));
 });
 
