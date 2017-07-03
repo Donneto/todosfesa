@@ -5,11 +5,12 @@ import cssnano from 'gulp-cssnano';
 import sourcemaps from 'gulp-sourcemaps';
 import watch from 'gulp-watch';
 import combinemq from 'gulp-combine-mq';
-import webpack from 'webpack-stream';
+import webpack_stream from 'webpack-stream';
 import gutil from 'gutil';
 import plumber from 'gulp-plumber';
 import uglifyPlugin from 'uglifyjs-webpack-plugin';
 import notify from 'gulp-notify';
+import webpack from 'webpack';
 
 // Local Variables
 const internals = {};
@@ -24,8 +25,8 @@ internals.onError = function(error) {
          message: 'Check the console for details.'
      }).write(error.message);
 
-	console.log(error.message); 
-	this.emit('end');	
+	console.log(error.message);
+	this.emit('end');
 };
 
 // Destructuring internals
@@ -46,39 +47,39 @@ gulp.task('sass', () => {
 gulp.task('js_bundler', () => {
 	return gulp.src('./dev/js/main.js')
 	.pipe(plumber())
-    .pipe(webpack({
+    .pipe(webpack_stream({
+		watch: true,
+		cache: true,
 		output: { filename: 'bundle.js' },
-		quiet: true,
 		module: {
-			preLoaders: [
-				// Javascript
-				{ test: /\.js$/, loader: 'eslint', exclude: /node_modules/ }
-			],
-			loaders: [
+			rules: [
 				{
-					test: /\.js$/,
+					test: /\.(js|jsx)$/,
 					exclude: /(node_modules|bower_components)/,
-					loader: 'babel-loader',
-					query: {
-						presets: ['es2015','react','stage-0']
-					}
+					use:[{
+							loader: 'babel-loader',
+							options: {
+								presets: ['es2015','react','stage-0'],
+								comments: false
+							}
+						},
+						{
+							loader: 'eslint-loader'
+						}]
 				}
 			]
 		},
-		plugins: [new uglifyPlugin()],
-		eslint: {
-			failOnWarning: false,
-			failOnError: false
-		}
-    }).on('error', onError ))
-    .pipe(gulp.dest('./build/js/'));
+		plugins: [new uglifyPlugin({output: {comments: false}})]
+    }, webpack)
+    .on('error', onError ))
+    .pipe(gulp.dest('./build/js/'))
+    .pipe(notify('Bundler completed'));
 });
-
 
 // WATCHERS
 gulp.task('watch', () => {
 	gulp.watch('./dev/sass/**/*.scss', ['sass']);
-	gulp.watch('./dev/js/**/*.js', ['js_bundler']);
+	// gulp.watch('./dev/js/**/*.js', ['js_bundler']);
 });
 
 gulp.task('default', ['sass','js_bundler', 'watch']);
