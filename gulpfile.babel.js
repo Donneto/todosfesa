@@ -46,7 +46,11 @@ gulp.task('sass', () => {
 
 gulp.task('js_bundler', () => {
 	return gulp.src('./dev/js/main.js')
-	.pipe(plumber())
+	.pipe(plumber({
+		errorHandler: () => {
+			console.log('error');
+		}
+	}))
     .pipe(webpack_stream({
 		watch: true,
 		cache: true,
@@ -70,8 +74,7 @@ gulp.task('js_bundler', () => {
 			]
 		},
 		plugins: [new uglifyPlugin({output: {comments: false}})]
-    }, webpack)
-    .on('error', onError ))
+    }, webpack))
     .pipe(gulp.dest('./build/js/'))
     .pipe(notify('Bundler completed'));
 });
