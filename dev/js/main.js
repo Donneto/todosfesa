@@ -1,5 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import logger from './modules/logger';
+
+logger();
 
 class App extends React.Component {
 
@@ -8,7 +11,7 @@ class App extends React.Component {
     return(
       <div>
         <h1>HELLO</h1>
-        <p>ooscar es un maldito gay jajajaaj</p>
+        <p>tu madre prro</p>
       </div>
     );
   }
