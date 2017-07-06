@@ -13,7 +13,12 @@ class Todos extends React.Component {
 
   render() {
     const data = this.data;
-    return (<div>{data.map( item => <TodoItem itemTitle={ item.title } />)}</div>);
+
+    return (
+      <nav className="panel">
+        <p className="panel-heading todosfesa-panel-heading">{this.props.todoType}</p>
+        {data.map( (item,index) => <TodoItem itemTitle={ item.title } key={index}/>)}
+      </nav>);
   }
 }
 

@@ -11,7 +11,7 @@ internals.data = [
     title: 'Todo 2',
     desc: 'Todo 2 Testing',
     dueDate: new Date('12/13/2017'),
-    status: 'pending'
+    status: 'completed'
   },
   {
     title: 'Todo 3',

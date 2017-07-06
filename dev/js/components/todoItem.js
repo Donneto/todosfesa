@@ -3,7 +3,9 @@ import React from 'react';
 class TodoItem extends React.Component {
   render() {
     return(
-      <a className="button">{this.props.itemTitle}</a>
+        <a className="panel-block">
+            {this.props.itemTitle}
+        </a>
     );
   }
 }
