@@ -33,4 +33,16 @@ internals.data = [
   }
 ];
 
-export const getData = () => internals.data;
+export const getData = (key) => {
+
+  const localStorageData = JSON.parse(localStorage.getItem(key));
+
+  if (localStorageData) {
+
+    return localStorageData;
+  }
+
+  return internals.data;
+};
+
+export const setData = (key, todoObj) => localStorage.setItem(key, JSON.stringify(todoObj));

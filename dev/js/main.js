@@ -1,4 +1,4 @@
-import { getData } from './model/data';
+import { getData, setData } from './model/data';
 import React from 'react';
 import ReactDom from 'react-dom';
 import Todos from './components/Todos';
@@ -14,8 +14,26 @@ class Todosfesa extends React.Component {
 
     let tempData = [ ...this.state.data ];
 
-    tempData = getData();
+    tempData = getData('todos');
+
     this.setState({ data: tempData });
+
+    setData('todos',
+      [
+        {
+          title: 'oa',
+          desc: 'localStorage',
+          dueDate: new Date('07/08/2017'),
+          status: 'completed'
+        },
+        {
+          title: 'oa2',
+          desc: 'localStorage2',
+          dueDate: new Date('07/09/2017'),
+          status: 'completed'
+        }
+      ]
+    );
   }
 
   render() {
