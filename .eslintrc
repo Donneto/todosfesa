@@ -23,9 +23,9 @@
         "objectLiteralShorthandProperties": true,
         "spread": true,
         "superInFunctions": true,
-        "templateStrings": true,        
+        "templateStrings": true,
         "jsx": true
-    }    
+    }
   },
   "rules": {
    "no-var": 2,                     // http://eslint.org/docs/rules/no-var
@@ -195,9 +195,9 @@
     "react/react-in-jsx-scope": 2,
     "react/self-closing-comp": 2,
     "react/sort-comp": 2,
-    "react/jsx-wrap-multilines": 2    
+    "react/jsx-wrap-multilines": 2
   },
   "plugins": [
     "react"
-  ]  
+  ]
 }

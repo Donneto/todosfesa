@@ -1,23 +1,36 @@
+import { getData } from './model/data';
 import React from 'react';
-import ReactDOM from 'react-dom';
-import logger from './modules/logger';
+import ReactDom from 'react-dom';
+import Todos from './components/Todos';
 
-logger();
+class Todosfesa extends React.Component {
 
-class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { data: [] };
+  }
+
+  componentWillMount() {
+
+    let tempData = [ ...this.state.data ];
+
+    tempData = getData();
+    this.setState({ data: tempData });
+  }
 
   render() {
-
-    return(
-      <div>
-        <h1>HELLO</h1>
-        <p>tu madre prro</p>
+    return (
+      <div className="columns">
+        <div className="column">
+          <Todos todos={this.state.data} todoType="pending" />
+          <Todos todos={this.state.data} todoType="completed"/>
+        </div>
+        <div className="column">
+          Detail
+        </div>
       </div>
     );
   }
 }
 
-ReactDOM.render(
-  <App/>,
-  document.getElementById('root')
-);
+ReactDom.render( <Todosfesa />, document.getElementById('root'));
