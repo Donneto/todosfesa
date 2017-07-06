@@ -17,7 +17,7 @@ class Todos extends React.Component {
     return (
       <nav className="panel">
         <p className="panel-heading todosfesa-panel-heading">{this.props.todoType}</p>
-        {data.map( (item,index) => <TodoItem itemTitle={ item.title } key={index}/>)}
+        {data.map( (item, index) => <TodoItem item={ item } key={index}/>)}
       </nav>);
   }
 }

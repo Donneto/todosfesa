@@ -20,6 +20,7 @@
     "eslint-loader": "^1.8.0",
     "eslint-plugin-react": "^7.1.0",
     "extract-text-webpack-plugin": "^2.1.2",
+    "moment": "^2.18.1",
     "node-sass": "^4.5.3",
     "path": "^0.12.7",
     "react": "^15.6.1",
