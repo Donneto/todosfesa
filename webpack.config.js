@@ -2,9 +2,10 @@ const webpack = require('webpack');
 const path = require('path');
 const uglifyPlugin = require('uglifyjs-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const argv = require('yargs').argv
 
-module.exports = {
-	devtool: 'nosources-source-map',
+const config = {
+	devtool: 'source-map',
 	entry: ['./dev/js/main.js',  './dev/sass/master.scss'],
 	watch: true,
 	output: {
@@ -78,4 +79,7 @@ module.exports = {
 			allChunks: false,
     	})
 	]
-}
+};
+
+
+module.exports = config;

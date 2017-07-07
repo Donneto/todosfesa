@@ -1,7 +1,7 @@
-import { getData, setData } from './model/data';
 import React from 'react';
 import ReactDom from 'react-dom';
 import Todos from './components/Todos';
+import { getData, setData } from './model/data';
 
 class Todosfesa extends React.Component {
 
@@ -15,24 +15,21 @@ class Todosfesa extends React.Component {
     let tempData = [ ...this.state.data ];
 
     tempData = getData('todos');
-
     this.setState({ data: tempData });
 
     setData('todos',
-      [
-        {
+      [{
           title: 'oa',
           desc: 'localStorage',
           dueDate: new Date('07/08/2017'),
-          status: 'completed'
+          status: 'pending'
         },
         {
           title: 'oa2',
           desc: 'localStorage2',
           dueDate: new Date('07/09/2017'),
           status: 'completed'
-        }
-      ]
+        }]
     );
   }
 
