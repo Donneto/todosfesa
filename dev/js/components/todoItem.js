@@ -3,15 +3,25 @@ import moment from 'moment';
 
 class TodoItem extends React.Component {
   constructor(props) {
+
     super(props);
+
+    this._onClickTodoPanelHandler = this._onClickTodoPanelHandler.bind(this);
   }
+
+  _onClickTodoPanelHandler(e) {
+    e.preventDefault();
+
+    this.props.onClickTodoItemHandler(this.props.item.id);
+  }
+
   render() {
 
-    const { onClickTodoItemHandler, item } = this.props;
-    const { id, title, dueDate } = item;
+    const { _onClickTodoPanelHandler, props } = this;
+    const { title, dueDate } = props.item;
 
     return(
-      <a className="panel-block" onClick={onClickTodoItemHandler} data-todo-id={id}>
+      <a className="panel-block" onClick={_onClickTodoPanelHandler}>
         <b>{title}</b> - <small className="is-left"> Due: {moment(dueDate).format('dddd, MMMM Do, YYYY')}</small>
       </a>
     );

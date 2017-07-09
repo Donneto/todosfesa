@@ -17,6 +17,7 @@ class Todosfesa extends React.Component {
     };
     this._onClickTodoItemHandler = this._onClickTodoItemHandler.bind(this);
     this._updateTodo = this._updateTodo.bind(this);
+    this._dataFiltering = this._dataFiltering.bind(this);
   }
 
   componentWillMount() {
@@ -44,10 +45,9 @@ class Todosfesa extends React.Component {
     // );
   }
 
-  _onClickTodoItemHandler(e) {
-    const selectedTodo = e.currentTarget.dataset.todoId;
+  _onClickTodoItemHandler(id) {
 
-    this.setState({ selectedTodo });
+    this.setState({ selectedTodo: id });
   }
 
   _updateTodo(id, updatedTodoDetails) {
@@ -61,16 +61,24 @@ class Todosfesa extends React.Component {
 
   }
 
+  _dataFiltering(status) {
+    const { data } = this.state;
+
+    const filteredData = data.filter( todo => todo.status === status); 
+
+    return filteredData;
+  }
+
   render() {
 
-    const { _onClickTodoItemHandler, _updateTodo, state } = this;
+    const { _onClickTodoItemHandler, _updateTodo, _dataFiltering, state } = this;
     const { data, selectedTodo } = state;
 
     return (
       <div className="columns">
         <div className="column">
-          <Todos todos={data} todoType="pending" onClickTodoItemHandler={_onClickTodoItemHandler} />
-          <Todos todos={data} todoType="completed" onClickTodoItemHandler={_onClickTodoItemHandler} />
+          <Todos todos={ _dataFiltering('pending') } onClickTodoItemHandler={_onClickTodoItemHandler} />
+          <Todos todos={ _dataFiltering('completed') } onClickTodoItemHandler={_onClickTodoItemHandler} />
         </div>
         <div className="column">
           {
