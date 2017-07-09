@@ -40,11 +40,12 @@ internals.data = [
 
 export const getData = (key) => {
 
-  const localStorageData = JSON.parse(localStorage.getItem(key));
+
+  const localStorageData = localStorage.getItem(key);
 
   if (localStorageData) {
 
-    return localStorageData;
+    return JSON.parse(localStorageData);
   }
 
   return internals.data;
