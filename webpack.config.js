@@ -30,7 +30,7 @@ const config = {
 					{
 						loader: 'babel-loader',
 						options: {
-							presets: ['es2015','react'],
+							presets: ['es2015','react','stage-3'],
 							comments: false
 						}
 					}
@@ -52,7 +52,7 @@ const config = {
 	},
 	plugins: [
 		new uglifyPlugin({
-			mangle: true,
+			mangle: false,
 			compress: {
 				warnings: false, // Suppress uglification warnings
 				pure_getters: true,
@@ -70,7 +70,7 @@ const config = {
 		}),
 		new webpack.DefinePlugin({
       		'process.env': {
-				'NODE_ENV': JSON.stringify('production')
+				'NODE_ENV': JSON.stringify('development')
 			}
 		}),
 		new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),

@@ -12,12 +12,14 @@ class Todos extends React.Component {
   }
 
   render() {
+
     const data = this.data;
+    const { onClickTodoItemHandler } = this.props;
 
     return (
       <nav className="panel">
         <p className="panel-heading todosfesa-panel-heading">{this.props.todoType}</p>
-        {data.map( (item, index) => <TodoItem item={ item } key={index}/>)}
+        {data.map( (item, index) => <TodoItem item={ item } key={index} onClickTodoItemHandler={onClickTodoItemHandler} />)}
       </nav>);
   }
 }
