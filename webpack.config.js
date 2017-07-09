@@ -51,23 +51,23 @@ const config = {
 		]
 	},
 	plugins: [
-		new uglifyPlugin({
-			mangle: false,
-			compress: {
-				warnings: false, // Suppress uglification warnings
-				pure_getters: true,
-				unsafe: true,
-				unsafe_comps: true,
-				screw_ie8: true
-			},
-			sourceMap: false,
-			output: {
-				comments: false
-			},
-			compressor: {
-				warnings: false
-			}
-		}),
+		// new uglifyPlugin({
+		// 	mangle: false,
+		// 	compress: {
+		// 		warnings: false, // Suppress uglification warnings
+		// 		pure_getters: true,
+		// 		unsafe: true,
+		// 		unsafe_comps: true,
+		// 		screw_ie8: true
+		// 	},
+		// 	sourceMap: false,
+		// 	output: {
+		// 		comments: false
+		// 	},
+		// 	compressor: {
+		// 		warnings: false
+		// 	}
+		// }),
 		new webpack.DefinePlugin({
       		'process.env': {
 				'NODE_ENV': JSON.stringify('development')
