@@ -5,7 +5,7 @@ import ReactDom from 'react-dom';
 
 import Todos from './components/Todos';
 import TodoDetailsBox from './components/TodoDetailsBox';
-import { getData } from './model/data';
+import { getData, setData } from './model/data';
 
 class Todosfesa extends React.Component {
 
