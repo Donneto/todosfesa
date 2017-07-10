@@ -5,7 +5,7 @@ import ReactDom from 'react-dom';
 
 import Todos from './components/Todos';
 import TodoDetailsBox from './components/TodoDetailsBox';
-import { getData, setData } from './model/data';
+import { getData } from './model/data';
 
 class Todosfesa extends React.Component {
 
@@ -29,7 +29,9 @@ class Todosfesa extends React.Component {
   }
 
   componentDidMount() {
-    if (this.state.data.length) this._updateCTodo(this.state.data[0]);
+    if (this.state.data.length) {
+      this._updateCTodo(this.state.data[0]);
+    }
   }
 
   // Custom Implementations
@@ -44,25 +46,20 @@ class Todosfesa extends React.Component {
 
   _updateData( todos = []) {
 
-    let tempState = [...this.state.data]
+    let tempState = [...this.state.data];
 
     tempState = todos;
     this.setState({ data: tempState });
   }
 
   _updateTodos() {
-    const { data , selectedTodo } = this.state;
+    const { data, selectedTodo } = this.state;
+    const tempTodos =  [ ...data ];
+    const todoIndex = tempTodos.findIndex( element  => selectedTodo.id === element.id);
 
-    if (selectedTodo) {
-      const tempTodos =  [ ...data ];
-      const todoIndex = tempTodos.findIndex((element) => {
-        return selectedTodo.id === element.id;
-      });
-
-      if (todoIndex !== -1) {
-        tempTodos[todoIndex] = selectedTodo;
-        this._updateData( tempTodos );
-      }
+    if (todoIndex !== -1) {
+      tempTodos[todoIndex] = selectedTodo;
+      this._updateData( tempTodos );
     }
   }
 

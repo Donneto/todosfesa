@@ -18,9 +18,9 @@ class TodoDetailsBox extends React.Component {
     this.props.updateTodos();
   }
 
-  updateProps(e, currentTodo) {
+  updateProps(e) {
     const updatedTodo = {
-      ...this.props.currentTodo,
+      ... this.props.currentTodo,
       [e.target.name]: e.target.value
     };
 
@@ -48,27 +48,27 @@ class TodoDetailsBox extends React.Component {
           <div className="field">
             <label className="label">Title:</label>
             <p className="control">
-              <input className="input" disabled={ this.props.currentTodo.status === "completed"} required type="text" name="title" placeholder="Text input" value={ this.props.currentTodo.title } onChange={ e => { this.updateProps(e, this.props.currentTodo) }} ref={ (input) => { this.titleInput = input } } />
+              <input className="input" disabled={ this.props.currentTodo.status === 'completed'} required type="text" name="title" placeholder="Text input" value={ this.props.currentTodo.title } onChange={ e => { this.updateProps(e, this.props.currentTodo); }} ref={ (input) => { this.titleInput = input; } } />
             </p>
           </div>
           <div className="field">
             <label className="label">Due Date:</label>
             <p className="control">
-              <input className="input" disabled={ this.props.currentTodo.status === "completed"} type="date" name="dueDate" placeholder="Text input" value={ dateFormat(this.props.currentTodo.dueDate) } onChange={ e => { this.updateProps(e) }} ref={ (input) => { this.dueDateInput = input }}  />
+              <input className="input" disabled={ this.props.currentTodo.status === 'completed'} type="date" name="dueDate" placeholder="Text input" value={ dateFormat(this.props.currentTodo.dueDate) } onChange={ e => { this.updateProps(e); }} ref={ (input) => { this.dueDateInput = input; }}  />
             </p>
           </div>
           <div className="field">
             <label className="label">Description:</label>
             <p className="control">
-              <textarea className="textarea" disabled={ this.props.currentTodo.status === "completed"} name="desc" placeholder="Textarea" value={ this.props.currentTodo.desc } onChange={ e => { this.updateProps(e) }} ref={ (input) => { this.descInput = input }}/>
+              <textarea className="textarea" disabled={ this.props.currentTodo.status === 'completed'} name="desc" placeholder="Textarea" value={ this.props.currentTodo.desc } onChange={ e => { this.updateProps(e); }} ref={ (input) => { this.descInput = input; }}/>
             </p>
           </div>
           <div className="field is-grouped">
             <p className="control">
-              <button className="button is-primary" disabled={ this.props.currentTodo.status === "completed"}>Save</button>
+              <button className="button is-primary" disabled={ this.props.currentTodo.status === 'completed'}>Save</button>
             </p>
             <p className="control">
-              <button className="button is-primary" disabled={ this.props.currentTodo.status === "completed"} onClick={ e => this.setCompleted(e) }>Complete</button>
+              <button className="button is-primary" disabled={ this.props.currentTodo.status === 'completed'} onClick={ e => this.setCompleted(e) }>Complete</button>
             </p>
           </div>
         </form>
