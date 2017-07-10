@@ -5,7 +5,7 @@ import ReactDom from 'react-dom';
 
 import Todos from './components/Todos';
 import TodoDetailsBox from './components/TodoDetailsBox';
-import { getData, setData } from './model/data';
+import { getData } from './model/data';
 
 class Todosfesa extends React.Component {
 
@@ -15,67 +15,74 @@ class Todosfesa extends React.Component {
       data: [],
       selectedTodo: null
     };
+
     this._onClickTodoItemHandler = this._onClickTodoItemHandler.bind(this);
-    this._updateTodo = this._updateTodo.bind(this);
+    this._updateData = this._updateData.bind(this);
+    this._updateTodos = this._updateTodos.bind(this);
+    this._updateCTodo = this._updateCTodo.bind(this);
   }
 
+  // React Lifecycle Components
   componentWillMount() {
 
-    let tempData = [ ...this.state.data ];
-
-    tempData = getData('todos');
-    this.setState({ data: tempData });
-
-    // setData('todos',
-    //   [{
-    //     id: 'todo1',
-    //     title: 'oa',
-    //     desc: 'localStorage',
-    //     dueDate: new Date('07/08/2017'),
-    //     status: 'pending'
-    //   },
-    //   {
-    //     id: 'todo2',
-    //     title: 'oa2',
-    //     desc: 'localStorage2',
-    //     dueDate: new Date('07/09/2017'),
-    //     status: 'completed'
-    //   }]
-    // );
+    this._updateData( getData('todos') );
   }
 
-  _onClickTodoItemHandler(e) {
-    const selectedTodo = e.currentTarget.dataset.todoId;
-
-    this.setState({ selectedTodo });
+  componentDidMount() {
+    if (this.state.data.length) this._updateCTodo(this.state.data[0]);
   }
 
-  _updateTodo(id, updatedTodoDetails) {
+  // Custom Implementations
 
-    const data = [...this.state.data];
-    const updatedDataIndex = data.findIndex( (todo) => todo.id === id );
+  _onClickTodoItemHandler( item ) {
 
-    data[updatedDataIndex] = updatedTodoDetails;
+    let sTodo = this.state.selectedTodo;
 
-    this.setState({ data });
+    sTodo = item;
+    this.setState({ selectedTodo: sTodo });
+  }
 
+  _updateData( todos = []) {
+
+    let tempState = [...this.state.data]
+
+    tempState = todos;
+    this.setState({ data: tempState });
+  }
+
+  _updateTodos() {
+    const { data , selectedTodo } = this.state;
+
+    if (selectedTodo) {
+      const tempTodos =  [ ...data ];
+      const todoIndex = tempTodos.findIndex((element) => {
+        return selectedTodo.id === element.id;
+      });
+
+      if (todoIndex !== -1) {
+        tempTodos[todoIndex] = selectedTodo;
+        this._updateData( tempTodos );
+      }
+    }
+  }
+
+  _updateCTodo( todo = null ) {
+    let sTodo = this.state.selectedTodo;
+
+    sTodo = todo;
+    this.setState({ selectedTodo: sTodo });
   }
 
   render() {
 
-    const { _onClickTodoItemHandler, _updateTodo, state } = this;
-    const { data, selectedTodo } = state;
-
     return (
       <div className="columns">
         <div className="column">
-          <Todos todos={data} todoType="pending" onClickTodoItemHandler={_onClickTodoItemHandler} />
-          <Todos todos={data} todoType="completed" onClickTodoItemHandler={_onClickTodoItemHandler} />
+          <Todos todos={this.state.data} todoType="pending" onClickTodoItemHandler={this._onClickTodoItemHandler} />
+          <Todos todos={this.state.data} todoType="completed" onClickTodoItemHandler={this._onClickTodoItemHandler} />
         </div>
         <div className="column">
-          {
-            (selectedTodo) && <TodoDetailsBox updateTodo={_updateTodo} todoDetails={data.find( todo => todo.id === selectedTodo)} />
-          }
+          {this.state.selectedTodo && <TodoDetailsBox currentTodo={ this.state.selectedTodo } updateTodo={ this._updateCTodo} updateTodos={ this._updateTodos } />}
         </div>
       </div>
     );

@@ -1,63 +1,76 @@
 import React from 'react';
 import moment from 'moment';
 
+const dateFormat = date => moment(date).format('YYYY-MM-DD');
+
 class TodoDetailsBox extends React.Component {
 
   constructor(props) {
     super(props);
-
-    this._handleInputChange = this._handleInputChange.bind(this);
+    this.submitForm = this.submitForm.bind(this);
+    this.updateProps - this.updateProps.bind(this);
+    this.setCompleted = this.setCompleted.bind(this);
   }
 
-  _handleInputChange(e, id) {
+  submitForm(e) {
+    e.preventDefault();
 
-    const { todoDetails, updateTodo } = this.props;
+    this.props.updateTodos();
+  }
 
+  updateProps(e, currentTodo) {
     const updatedTodo = {
-      ...todoDetails,
+      ...this.props.currentTodo,
       [e.target.name]: e.target.value
     };
 
-   updateTodo(id, updatedTodo);
+    this.props.updateTodo(updatedTodo);
+  }
+
+  setCompleted(e) {
+    e.preventDefault();
+
+    const updatedTodo = this.props.currentTodo;
+
+    updatedTodo.status = 'completed';
+
+    this.props.updateTodo(updatedTodo);
+    this.props.updateTodos();
   }
 
   render() {
 
-    const { _handleInputChange, props } = this;
-    const { todoDetails } = props;
-    const { id, title, desc, dueDate, status } = todoDetails;
-
     return (
-      <div className="card">
-        <header className="card-header">
-          <div className="card-header-title columns">
-            <label htmlFor="" className="column is-2 todosfesa-todo-title">Title:</label>
-            <div className="column is-10">
-               <input className={`todosfesa-text-input ${(status==="completed") ? 'is-disabled' : ''}`} name="title" type="text" disabled={status==="completed"} value={title} onChange={ (e) => _handleInputChange(e, id) }/>
-            </div>
+      <div className="box">
+        <form action="" onSubmit={ this.submitForm }>
+          <div className="field">
+            <label className="label">Title:</label>
+            <p className="control">
+              <input className="input" required type="text" name="title" placeholder="Text input" value={ this.props.currentTodo.title } onChange={ e => { this.updateProps(e, this.props.currentTodo) }} ref={ (input) => { this.titleInput = input } } />
+            </p>
           </div>
-        </header>
-        <div className="card-content columns is-multiline">
-          <div className="column is-12">
-            <div className="content">
-              <p>
-                 <b>Due Date:</b> <input className={`todosfesa-date-input ${(status==="completed") ? 'is-disabled' : ''} `} name="dueDate" type="date" disabled={status==="completed"} value={moment(dueDate).format('YYYY-MM-DD')} onChange={ (e) => _handleInputChange(e, id) } />
-              </p>            
-            </div>
+          <div className="field">
+            <label className="label">Due Date:</label>
+            <p className="control">
+              <input className="input" type="date" name="dueDate" placeholder="Text input" value={ dateFormat(this.props.currentTodo.dueDate) } onChange={ e => { this.updateProps(e) }} ref={ (input) => { this.dueDateInput = input }}  />
+            </p>
           </div>
-          <div className="column is-12">
-            <div className="content">
-              <textarea className={`todosfesa-textarea ${(status==="completed") ? 'is-disabled' : ''}`} name="desc" disabled={status==="completed"} value={desc} onChange={ (e) => _handleInputChange(e, id) } />
-            </div>          
+          <div className="field">
+            <label className="label">Description:</label>
+            <p className="control">
+              <textarea className="textarea" name="desc" placeholder="Textarea" value={ this.props.currentTodo.desc } onChange={ e => { this.updateProps(e) }} ref={ (input) => { this.descInput = input }}/>
+            </p>
           </div>
-        </div>
-        <footer className="card-footer">
-          <a className="card-footer-item button is-white" disabled={status==="completed"}>Save</a>
-          <a className="card-footer-item button is-white" disabled={status==="completed"}>Complete</a>
-          <a className="card-footer-item button is-white">Close</a>
-        </footer>
+          <div className="field is-grouped">
+            <p className="control">
+              <button className="button is-primary">Save</button>
+            </p>
+            <p className="control">
+              <button className="button is-primary" onClick={ e => this.setCompleted(e) }>Complete</button>
+            </p>
+          </div>
+        </form>
       </div>
-
     );
   }
 }

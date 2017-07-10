@@ -8,19 +8,18 @@ class TodoItem extends React.Component {
     this.setMePlease = this.setMePlease.bind(this);
   }
 
-  setMePlease(e){
+  setMePlease(e) {
     e.preventDefault();
-    this.props.onClickTodoItemHandler(this.props.id);
+
+    this.props.onClickTodoItemHandler(this.props.item);
   }
 
   render() {
 
-    const { onClickTodoItemHandler, item } = this.props;
-    const { id, title, dueDate } = item;
 
     return(
-      <a className="panel-block" onClick={onClickTodoItemHandler} data-todo-id={id}>
-        <b>{title}</b> - <small className="is-left"> Due: {moment(dueDate).format('dddd, MMMM Do, YYYY')}</small>
+      <a className="panel-block" onClick={ (e) => this.setMePlease(e) } >
+        <b>{this.props.item.title}</b> - <small className="is-left"> Due: {moment(this.props.item.dueDate).format('dddd, MMMM Do, YYYY')}</small>
       </a>
     );
   }
