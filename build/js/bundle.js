@@ -27012,10 +27012,19 @@ var TodoItem = function (_React$Component) {
   function TodoItem(props) {
     _classCallCheck(this, TodoItem);
 
-    return _possibleConstructorReturn(this, (TodoItem.__proto__ || Object.getPrototypeOf(TodoItem)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (TodoItem.__proto__ || Object.getPrototypeOf(TodoItem)).call(this, props));
+
+    _this.setMePlease = _this.setMePlease.bind(_this);
+    return _this;
   }
 
   _createClass(TodoItem, [{
+    key: 'setMePlease',
+    value: function setMePlease(e) {
+      e.preventDefault();
+      this.props.onClickTodoItemHandler(this.props.id);
+    }
+  }, {
     key: 'render',
     value: function render() {
       var _props = this.props,
@@ -27281,11 +27290,11 @@ internals.data = [{
 
 var getData = exports.getData = function getData(key) {
 
-  var localStorageData = JSON.parse(localStorage.getItem(key));
+  var localStorageData = localStorage.getItem(key);
 
   if (localStorageData) {
 
-    return localStorageData;
+    return JSON.parse(localStorageData);
   }
 
   return internals.data;

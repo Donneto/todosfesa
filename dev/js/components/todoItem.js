@@ -4,7 +4,15 @@ import moment from 'moment';
 class TodoItem extends React.Component {
   constructor(props) {
     super(props);
+
+    this.setMePlease = this.setMePlease.bind(this);
   }
+
+  setMePlease(e){
+    e.preventDefault();
+    this.props.onClickTodoItemHandler(this.props.id);
+  }
+
   render() {
 
     const { onClickTodoItemHandler, item } = this.props;
