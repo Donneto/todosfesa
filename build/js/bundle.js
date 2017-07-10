@@ -27175,6 +27175,8 @@ var TodoDetailsBox = function (_React$Component) {
 
       this.props.updateTodo(updatedTodo);
       this.props.updateTodos();
+
+      console.log(this.props.currentTodo.status);
     }
   }, {
     key: 'render',
@@ -27198,7 +27200,7 @@ var TodoDetailsBox = function (_React$Component) {
             _react2.default.createElement(
               'p',
               { className: 'control' },
-              _react2.default.createElement('input', { className: 'input', required: true, type: 'text', name: 'title', placeholder: 'Text input', value: this.props.currentTodo.title, onChange: function onChange(e) {
+              _react2.default.createElement('input', { className: 'input', disabled: this.props.currentTodo.status === "completed", required: true, type: 'text', name: 'title', placeholder: 'Text input', value: this.props.currentTodo.title, onChange: function onChange(e) {
                   _this2.updateProps(e, _this2.props.currentTodo);
                 }, ref: function ref(input) {
                   _this2.titleInput = input;
@@ -27216,7 +27218,7 @@ var TodoDetailsBox = function (_React$Component) {
             _react2.default.createElement(
               'p',
               { className: 'control' },
-              _react2.default.createElement('input', { className: 'input', type: 'date', name: 'dueDate', placeholder: 'Text input', value: dateFormat(this.props.currentTodo.dueDate), onChange: function onChange(e) {
+              _react2.default.createElement('input', { className: 'input', disabled: this.props.currentTodo.status === "completed", type: 'date', name: 'dueDate', placeholder: 'Text input', value: dateFormat(this.props.currentTodo.dueDate), onChange: function onChange(e) {
                   _this2.updateProps(e);
                 }, ref: function ref(input) {
                   _this2.dueDateInput = input;
@@ -27234,7 +27236,7 @@ var TodoDetailsBox = function (_React$Component) {
             _react2.default.createElement(
               'p',
               { className: 'control' },
-              _react2.default.createElement('textarea', { className: 'textarea', name: 'desc', placeholder: 'Textarea', value: this.props.currentTodo.desc, onChange: function onChange(e) {
+              _react2.default.createElement('textarea', { className: 'textarea', disabled: this.props.currentTodo.status === "completed", name: 'desc', placeholder: 'Textarea', value: this.props.currentTodo.desc, onChange: function onChange(e) {
                   _this2.updateProps(e);
                 }, ref: function ref(input) {
                   _this2.descInput = input;
@@ -27249,7 +27251,7 @@ var TodoDetailsBox = function (_React$Component) {
               { className: 'control' },
               _react2.default.createElement(
                 'button',
-                { className: 'button is-primary' },
+                { className: 'button is-primary', disabled: this.props.currentTodo.status === "completed" },
                 'Save'
               )
             ),
@@ -27258,7 +27260,7 @@ var TodoDetailsBox = function (_React$Component) {
               { className: 'control' },
               _react2.default.createElement(
                 'button',
-                { className: 'button is-primary', onClick: function onClick(e) {
+                { className: 'button is-primary', disabled: this.props.currentTodo.status === "completed", onClick: function onClick(e) {
                     return _this2.setCompleted(e);
                   } },
                 'Complete'
