@@ -1,21 +1,27 @@
 import React from 'react';
 import ReactDom from 'react-dom';
+import { getData } from './model/data';
 
-// Object.assign(window, {React, ReactDom});
-
+// Components
 import Todos from './components/Todos';
 import TodoDetailsBox from './components/TodoDetailsBox';
-import { getData } from './model/data';
+
+// Component Helpers
+import _componentHelper from './components/helpers/TodoItem';
+
 
 class Todosfesa extends React.Component {
 
   constructor(props) {
     super(props);
+
+    // App State
     this.state = {
       data: [],
       selectedTodo: null
     };
 
+    // Binders
     this._onClickTodoItemHandler = this._onClickTodoItemHandler.bind(this);
     this._updateData = this._updateData.bind(this);
     this._updateTodos = this._updateTodos.bind(this);
@@ -24,7 +30,6 @@ class Todosfesa extends React.Component {
 
   // React Lifecycle Components
   componentWillMount() {
-
     this._updateData( getData('todos') );
   }
 
@@ -35,27 +40,26 @@ class Todosfesa extends React.Component {
   }
 
   // Custom Implementations
-
   _onClickTodoItemHandler( item ) {
 
-    let sTodo = this.state.selectedTodo;
+    let { selectedTodo } = this.state;
 
-    sTodo = item;
-    this.setState({ selectedTodo: sTodo });
+    selectedTodo = item;
+    this.setState({ selectedTodo });
   }
 
   _updateData( todos = []) {
 
-    let tempState = [...this.state.data];
+    let tempTodos = [...this.state.data];
 
-    tempState = todos;
-    this.setState({ data: tempState });
+    tempTodos = todos;
+    this.setState({ data: tempTodos });
   }
 
   _updateTodos() {
-    const { data, selectedTodo } = this.state;
-    const tempTodos =  [ ...data ];
-    const todoIndex = tempTodos.findIndex( element  => selectedTodo.id === element.id);
+    const { selectedTodo } = this.state;
+    const tempTodos =  [ ...this.state.data ];
+    const todoIndex = _componentHelper.getItemIndex(selectedTodo, tempTodos);
 
     if (todoIndex !== -1) {
       tempTodos[todoIndex] = selectedTodo;
@@ -64,10 +68,10 @@ class Todosfesa extends React.Component {
   }
 
   _updateCTodo( todo = null ) {
-    let sTodo = this.state.selectedTodo;
+    let { selectedTodo } = this.state;
 
-    sTodo = todo;
-    this.setState({ selectedTodo: sTodo });
+    selectedTodo = todo;
+    this.setState({ selectedTodo });
   }
 
   render() {

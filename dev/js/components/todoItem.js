@@ -16,7 +16,6 @@ class TodoItem extends React.Component {
 
   render() {
 
-
     return(
       <a className="panel-block" onClick={ (e) => this.setMePlease(e) } >
         <b>{this.props.item.title}</b> - <small className="is-left"> Due: {moment(this.props.item.dueDate).format('dddd, MMMM Do, YYYY')}</small>

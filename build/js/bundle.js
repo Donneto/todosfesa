@@ -13762,14 +13762,14 @@ return hooks;
 
 })));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(174)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(175)(module)))
 
 /***/ }),
 /* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(79);
-module.exports = __webpack_require__(177);
+module.exports = __webpack_require__(178);
 
 
 /***/ }),
@@ -13789,15 +13789,19 @@ var _reactDom = __webpack_require__(95);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _Todos = __webpack_require__(172);
+var _data = __webpack_require__(172);
+
+var _Todos = __webpack_require__(173);
 
 var _Todos2 = _interopRequireDefault(_Todos);
 
-var _TodoDetailsBox = __webpack_require__(175);
+var _TodoDetailsBox = __webpack_require__(176);
 
 var _TodoDetailsBox2 = _interopRequireDefault(_TodoDetailsBox);
 
-var _data = __webpack_require__(176);
+var _TodoItem = __webpack_require__(177);
+
+var _TodoItem2 = _interopRequireDefault(_TodoItem);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -13832,7 +13836,6 @@ var Todosfesa = function (_React$Component) {
   _createClass(Todosfesa, [{
     key: 'componentWillMount',
     value: function componentWillMount() {
-
       this._updateData((0, _data.getData)('todos'));
     }
   }, {
@@ -13845,11 +13848,11 @@ var Todosfesa = function (_React$Component) {
   }, {
     key: '_onClickTodoItemHandler',
     value: function _onClickTodoItemHandler(item) {
+      var selectedTodo = this.state.selectedTodo;
 
-      var sTodo = this.state.selectedTodo;
 
-      sTodo = item;
-      this.setState({ selectedTodo: sTodo });
+      selectedTodo = item;
+      this.setState({ selectedTodo: selectedTodo });
     }
   }, {
     key: '_updateData',
@@ -13857,22 +13860,18 @@ var Todosfesa = function (_React$Component) {
       var todos = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
 
 
-      var tempState = [].concat(_toConsumableArray(this.state.data));
+      var tempTodos = [].concat(_toConsumableArray(this.state.data));
 
-      tempState = todos;
-      this.setState({ data: tempState });
+      tempTodos = todos;
+      this.setState({ data: tempTodos });
     }
   }, {
     key: '_updateTodos',
     value: function _updateTodos() {
-      var _state = this.state,
-          data = _state.data,
-          selectedTodo = _state.selectedTodo;
+      var selectedTodo = this.state.selectedTodo;
 
-      var tempTodos = [].concat(_toConsumableArray(data));
-      var todoIndex = tempTodos.findIndex(function (element) {
-        return selectedTodo.id === element.id;
-      });
+      var tempTodos = [].concat(_toConsumableArray(this.state.data));
+      var todoIndex = _TodoItem2.default.getItemIndex(selectedTodo, tempTodos);
 
       if (todoIndex !== -1) {
         tempTodos[todoIndex] = selectedTodo;
@@ -13883,11 +13882,11 @@ var Todosfesa = function (_React$Component) {
     key: '_updateCTodo',
     value: function _updateCTodo() {
       var todo = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+      var selectedTodo = this.state.selectedTodo;
 
-      var sTodo = this.state.selectedTodo;
 
-      sTodo = todo;
-      this.setState({ selectedTodo: sTodo });
+      selectedTodo = todo;
+      this.setState({ selectedTodo: selectedTodo });
     }
   }, {
     key: 'render',
@@ -25630,6 +25629,66 @@ module.exports = ReactMount.renderSubtreeIntoContainer;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+var internals = {};
+
+internals.data = [{
+  id: 'sampletodo1',
+  title: 'Todo 1',
+  desc: 'Todo 1 Testing',
+  dueDate: new Date('12/12/2017'),
+  status: 'pending'
+}, {
+  id: 'sampletodo2',
+  title: 'Todo 2',
+  desc: 'Todo 2 Testing',
+  dueDate: new Date('12/13/2017'),
+  status: 'completed'
+}, {
+  id: 'sampletodo3',
+  title: 'Todo 3',
+  desc: 'Todo 3 Testing',
+  dueDate: new Date('11/12/2017'),
+  status: 'pending'
+}, {
+  id: 'sampletodo4',
+  title: 'Todo 4',
+  desc: 'Todo 4 Testing',
+  dueDate: new Date('09/12/2017'),
+  status: 'pending'
+}, {
+  id: 'sampletodo5',
+  title: 'Todo 5',
+  desc: 'Todo 5 Testing',
+  dueDate: new Date('12/24/2017'),
+  status: 'pending'
+}];
+
+var getData = exports.getData = function getData(key) {
+
+  var localStorageData = localStorage.getItem(key);
+
+  if (localStorageData) {
+
+    return JSON.parse(localStorageData);
+  }
+
+  return internals.data;
+};
+
+var setData = exports.setData = function setData(key, todoObj) {
+  return localStorage.setItem(key, JSON.stringify(todoObj));
+};
+
+/***/ }),
+/* 173 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -25637,7 +25696,7 @@ var _react = __webpack_require__(22);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _TodoItem = __webpack_require__(173);
+var _TodoItem = __webpack_require__(174);
 
 var _TodoItem2 = _interopRequireDefault(_TodoItem);
 
@@ -25687,7 +25746,7 @@ var Todos = function (_React$Component) {
 exports.default = Todos;
 
 /***/ }),
-/* 173 */
+/* 174 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25766,7 +25825,7 @@ var TodoItem = function (_React$Component) {
 exports.default = TodoItem;
 
 /***/ }),
-/* 174 */
+/* 175 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -25794,7 +25853,7 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 175 */
+/* 176 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25972,7 +26031,7 @@ var TodoDetailsBox = function (_React$Component) {
 exports.default = TodoDetailsBox;
 
 /***/ }),
-/* 176 */
+/* 177 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25983,56 +26042,16 @@ Object.defineProperty(exports, "__esModule", {
 });
 var internals = {};
 
-internals.data = [{
-  id: 'sampletodo1',
-  title: 'Todo 1',
-  desc: 'Todo 1 Testing',
-  dueDate: new Date('12/12/2017'),
-  status: 'pending'
-}, {
-  id: 'sampletodo2',
-  title: 'Todo 2',
-  desc: 'Todo 2 Testing',
-  dueDate: new Date('12/13/2017'),
-  status: 'completed'
-}, {
-  id: 'sampletodo3',
-  title: 'Todo 3',
-  desc: 'Todo 3 Testing',
-  dueDate: new Date('11/12/2017'),
-  status: 'pending'
-}, {
-  id: 'sampletodo4',
-  title: 'Todo 4',
-  desc: 'Todo 4 Testing',
-  dueDate: new Date('09/12/2017'),
-  status: 'pending'
-}, {
-  id: 'sampletodo5',
-  title: 'Todo 5',
-  desc: 'Todo 5 Testing',
-  dueDate: new Date('12/24/2017'),
-  status: 'pending'
-}];
-
-var getData = exports.getData = function getData(key) {
-
-  var localStorageData = localStorage.getItem(key);
-
-  if (localStorageData) {
-
-    return JSON.parse(localStorageData);
-  }
-
-  return internals.data;
+internals.getItemIndex = function (item, dataSet) {
+  return dataSet.findIndex(function (element) {
+    return item.id === element.id;
+  }) || -1;
 };
 
-var setData = exports.setData = function setData(key, todoObj) {
-  return localStorage.setItem(key, JSON.stringify(todoObj));
-};
+exports.default = internals;
 
 /***/ }),
-/* 177 */
+/* 178 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
