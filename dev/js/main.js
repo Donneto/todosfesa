@@ -1,89 +1,101 @@
 import React from 'react';
 import ReactDom from 'react-dom';
+import { getData } from './model/data';
 
-// Object.assign(window, {React, ReactDom});
-
+// Components
 import Todos from './components/Todos';
 import TodoDetailsBox from './components/TodoDetailsBox';
-import { getData, setData } from './model/data';
+
+// Component Helpers
+import _componentHelper from './components/helpers/TodoItem';
+
 
 class Todosfesa extends React.Component {
 
   constructor(props) {
     super(props);
+
+    // App State
     this.state = {
       data: [],
       selectedTodo: null
     };
+
+    // Binders
     this._onClickTodoItemHandler = this._onClickTodoItemHandler.bind(this);
-    this._updateTodo = this._updateTodo.bind(this);
     this._dataFiltering = this._dataFiltering.bind(this);
+    this._updateData = this._updateData.bind(this);
+    this._updateTodos = this._updateTodos.bind(this);
+    this._updateCTodo = this._updateCTodo.bind(this);
   }
 
+  // React Lifecycle Components
   componentWillMount() {
-
-    let tempData = [ ...this.state.data ];
-
-    tempData = getData('todos');
-    this.setState({ data: tempData });
-
-    // setData('todos',
-    //   [{
-    //     id: 'todo1',
-    //     title: 'oa',
-    //     desc: 'localStorage',
-    //     dueDate: new Date('07/08/2017'),
-    //     status: 'pending'
-    //   },
-    //   {
-    //     id: 'todo2',
-    //     title: 'oa2',
-    //     desc: 'localStorage2',
-    //     dueDate: new Date('07/09/2017'),
-    //     status: 'completed'
-    //   }]
-    // );
+    this._updateData( getData('todos') );
   }
 
-  _onClickTodoItemHandler(id) {
-
-    this.setState({ selectedTodo: id });
+  componentDidMount() {
+    if (this.state.data.length) {
+      this._updateCTodo(this.state.data[0]);
+    }
   }
 
-  _updateTodo(id, updatedTodoDetails) {
+  // Custom Implementations
+  _onClickTodoItemHandler( item ) {
 
-    const data = [...this.state.data];
-    const updatedDataIndex = data.findIndex( (todo) => todo.id === id );
+    let { selectedTodo } = this.state;
 
-    data[updatedDataIndex] = updatedTodoDetails;
+    selectedTodo = item;
+    this.setState({ selectedTodo });
+  }
 
-    this.setState({ data });
+  _updateData( todos = []) {
 
+    let tempTodos = [...this.state.data];
+
+    tempTodos = todos;
+    this.setState({ data: tempTodos });
+  }
+
+  _updateTodos() {
+    const { selectedTodo } = this.state;
+    const tempTodos =  [ ...this.state.data ];
+    const todoIndex = _componentHelper.getItemIndex(selectedTodo, tempTodos);
+
+    if (todoIndex !== -1) {
+      tempTodos[todoIndex] = selectedTodo;
+      this._updateData( tempTodos );
+    }
   }
 
   _dataFiltering(status) {
     const { data } = this.state;
 
-    const filteredData = data.filter( todo => todo.status === status); 
+    const filteredData = data.filter( todo => todo.status === status);
 
     return filteredData;
   }
 
+  _updateCTodo( todo = null ) {
+    let { selectedTodo } = this.state;
+
+    selectedTodo = todo;
+    this.setState({ selectedTodo });
+  }
+
   render() {
 
-    const { _onClickTodoItemHandler, _updateTodo, _dataFiltering, state } = this;
-    const { data, selectedTodo } = state;
+    const { _onClickTodoItemHandler, _dataFiltering, state } = this;
+    const { selectedTodo } = state;
 
     return (
       <div className="columns">
         <div className="column">
-          <Todos todos={ _dataFiltering('pending') } onClickTodoItemHandler={_onClickTodoItemHandler} />
-          <Todos todos={ _dataFiltering('completed') } onClickTodoItemHandler={_onClickTodoItemHandler} />
+          <Todos todos={ _dataFiltering('pending') } todoType="pending" onClickTodoItemHandler={_onClickTodoItemHandler} />
+          <Todos todos={ _dataFiltering('completed') } todoType="completed" onClickTodoItemHandler={_onClickTodoItemHandler} />
         </div>
         <div className="column">
-          {
-            (selectedTodo) && <TodoDetailsBox updateTodo={_updateTodo} todoDetails={data.find( todo => todo.id === selectedTodo)} />
-          }
+          { selectedTodo && <TodoDetailsBox currentTodo={ selectedTodo } updateTodo={ this._updateCTodo} updateTodos={ this._updateTodos } />}
         </div>
       </div>
     );
