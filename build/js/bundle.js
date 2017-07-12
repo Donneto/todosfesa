@@ -13818,6 +13818,8 @@ var TodoForm = function (_React$Component) {
           selectedTodo = _props.selectedTodo;
 
 
+      var minDate = new Date();
+
       return _react2.default.createElement(
         'div',
         { className: 'box' },
@@ -13853,7 +13855,7 @@ var TodoForm = function (_React$Component) {
             _react2.default.createElement(
               'p',
               { className: 'control' },
-              _react2.default.createElement('input', { className: 'input', disabled: selectedTodo.status === 'completed', type: 'date', name: 'dueDate', placeholder: 'Text input', value: dateFormat(selectedTodo.dueDate), onChange: function onChange(e) {
+              _react2.default.createElement('input', { className: 'input', disabled: selectedTodo.status === 'completed', type: 'date', min: dateFormat(minDate), name: 'dueDate', placeholder: 'Text input', value: dateFormat(selectedTodo.dueDate), onChange: function onChange(e) {
                   updateTodosHandler(e);
                 }, ref: function ref(input) {
                   _this2.dueDateInput = input;

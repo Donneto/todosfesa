@@ -13,6 +13,8 @@ class TodoForm extends React.Component {
 
     const { submitFormHandler, updateTodosHandler, setCompletedTodoHandler, selectedTodo } = this.props;
 
+    const minDate = new Date();
+
     return (
       <div className="box">
         <form action="" onSubmit={ submitFormHandler }>
@@ -25,7 +27,7 @@ class TodoForm extends React.Component {
           <div className="field">
             <label className="label">Due Date:</label>
             <p className="control">
-              <input className="input" disabled={ selectedTodo.status === 'completed'} type="date" name="dueDate" placeholder="Text input" value={ dateFormat(selectedTodo.dueDate) } onChange={ e => { updateTodosHandler(e); }} ref={ (input) => { this.dueDateInput = input; }}  />
+              <input className="input" disabled={ selectedTodo.status === 'completed'} type="date" min={dateFormat(minDate)} name="dueDate" placeholder="Text input" value={ dateFormat(selectedTodo.dueDate) } onChange={ e => { updateTodosHandler(e); }} ref={ (input) => { this.dueDateInput = input; }}  />
             </p>
           </div>
           <div className="field">
