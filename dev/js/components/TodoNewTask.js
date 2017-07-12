@@ -1,12 +1,12 @@
 import React from 'react';
 import TodoForm from './TodoForm';
 
-class TodoDetailsBox extends React.Component {
+class TodoNewTask extends React.Component {
 
   constructor(props) {
     super(props);
     this.submitForm = this.submitForm.bind(this);
-    this.updateProps = this.updateProps.bind(this);
+    this.createTask = this.createTask.bind(this);
     this.setCompleted = this.setCompleted.bind(this);
   }
 
@@ -16,7 +16,7 @@ class TodoDetailsBox extends React.Component {
     this.props.updateTodos();
   }
 
-  updateProps(e) {
+  createTask(e) {
 
     const { currentTodo, updateTodo } = this.props;
 
@@ -37,26 +37,25 @@ class TodoDetailsBox extends React.Component {
 
     this.props.updateTodo(updatedTodo);
     this.props.updateTodos();
-
   }
 
   render() {
 
-    const { submitForm, updateProps, setCompleted, props } = this;
+    const { submitForm, createTask, setCompleted, props } = this;
     const { currentTodo } = props;
 
     return (
       <div className="box">
-        <h2><b>Edit the information of an existing Todo</b></h2>
+        <h2><b>Enter information for a new Todo:</b></h2>
         <TodoForm
-          submitFormHandler = {submitForm}
-          updateTodosHandler = {updateProps}
-          setCompletedTodoHandler = {setCompleted}
-          selectedTodo = {currentTodo}
+          submitFormHandler={submitForm}
+          updateTodosHandler={createTask}
+          setCompletedTodoHandler={setCompleted}
+          selectedTodo={currentTodo}
         />
       </div>
     );
   }
 }
 
-export default TodoDetailsBox;
+export default TodoNewTask;
