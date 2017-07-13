@@ -10,6 +10,7 @@ class TodoDetailsBox extends React.Component {
     this.submitForm = this.submitForm.bind(this);
     this.updateProps - this.updateProps.bind(this);
     this.setCompleted = this.setCompleted.bind(this);
+    this.sendNewTodo = this.sendNewTodo.bind(this);
   }
 
   submitForm(e) {
@@ -19,6 +20,7 @@ class TodoDetailsBox extends React.Component {
   }
 
   updateProps(e) {
+
     const updatedTodo = {
       ... this.props.currentTodo,
       [e.target.name]: e.target.value
@@ -36,8 +38,12 @@ class TodoDetailsBox extends React.Component {
 
     this.props.updateTodo(updatedTodo);
     this.props.updateTodos();
+  }
 
-    console.log( this.props.currentTodo.status );
+  sendNewTodo(e) {
+    e.preventDefault();
+
+    this.props.addNewTodo();
   }
 
   render() {
@@ -54,7 +60,7 @@ class TodoDetailsBox extends React.Component {
           <div className="field">
             <label className="label">Due Date:</label>
             <p className="control">
-              <input className="input" disabled={ this.props.currentTodo.status === 'completed'} type="date" name="dueDate" placeholder="Text input" value={ dateFormat(this.props.currentTodo.dueDate) } onChange={ e => { this.updateProps(e); }} ref={ (input) => { this.dueDateInput = input; }}  />
+              <input className="input" disabled={ this.props.currentTodo.status === 'completed'} type="date" name="dueDate" placeholder="Text input" min={ dateFormat(new Date()) } value={ dateFormat(this.props.currentTodo.dueDate) } onChange={ e => { this.updateProps(e); }} ref={ (input) => { this.dueDateInput = input; }}  />
             </p>
           </div>
           <div className="field">
@@ -64,11 +70,14 @@ class TodoDetailsBox extends React.Component {
             </p>
           </div>
           <div className="field is-grouped">
-            <p className="control">
+            <p className={`control ${this.props.currentTodo.isNew ? 'is-hidden' : '' }`}>
               <button className="button is-primary" disabled={ this.props.currentTodo.status === 'completed'}>Save</button>
             </p>
-            <p className="control">
+            <p className={`control ${this.props.currentTodo.isNew ? 'is-hidden' : '' }`}>
               <button className="button is-primary" disabled={ this.props.currentTodo.status === 'completed'} onClick={ e => this.setCompleted(e) }>Complete</button>
+            </p>
+            <p className={`control ${!this.props.currentTodo.isNew ? 'is-hidden' : '' }`}>
+              <button className="button is-primary" onClick={ (e) => this.sendNewTodo(e) }>Add</button>
             </p>
           </div>
         </form>

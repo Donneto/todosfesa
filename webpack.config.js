@@ -18,12 +18,6 @@ const config = {
 	module: {
 		rules: [
 			{
-				enforce: "pre",
-				test: /\.js|jsx$/,
-				exclude: /(node_modules|bower_components)/,
-				loader: 'eslint-loader'
-			},
-			{
 				test: /\.(js|jsx)$/,
 				exclude: /(node_modules|bower_components)/,
 				use: [
@@ -35,6 +29,12 @@ const config = {
 						}
 					}
 				]
+			},
+			{
+				enforce: "pre",
+				test: /\.js|jsx$/,
+				exclude: /(node_modules|bower_components)/,
+				loader: 'eslint-loader'
 			},
 			// {
 			// 	test: /\.css$/,
