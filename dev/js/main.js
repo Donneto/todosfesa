@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDom from 'react-dom';
-import { getData } from './model/data';
+import { getData, setData } from './model/data';
+import shortId from 'shortid';
 
 // Components
 import Todos from './components/Todos';
 import TodoDetailsBox from './components/TodoDetailsBox';
-import TodoNewTask from './components/TodoNewTask';
 
 // Component Helpers
 import _componentHelper from './components/helpers/TodoItem';
@@ -19,18 +19,15 @@ class Todosfesa extends React.Component {
     // App State
     this.state = {
       data: [],
-      selectedTodo: null,
-      newTodo: null
+      selectedTodo: null
     };
 
     // Binders
     this._onClickTodoItemHandler = this._onClickTodoItemHandler.bind(this);
-    this._dataFiltering = this._dataFiltering.bind(this);
     this._updateData = this._updateData.bind(this);
     this._updateTodos = this._updateTodos.bind(this);
     this._updateCTodo = this._updateCTodo.bind(this);
-    this._createNewTodo = this._createNewTodo.bind(this);
-    this._updateNewTodo = this._updateNewTodo.bind(this);
+    this._setNewTodo = this._setNewTodo.bind(this);
     this._addNewTodo = this._addNewTodo.bind(this);
   }
 
@@ -60,6 +57,8 @@ class Todosfesa extends React.Component {
 
     tempTodos = todos;
     this.setState({ data: tempTodos });
+
+    setData('todos', todos);
   }
 
   _updateTodos() {
@@ -73,33 +72,6 @@ class Todosfesa extends React.Component {
     }
   }
 
-  _createNewTodo() {
-
-    const id = `todo-${Date.now()}`;
-
-    const newTodo = {
-      id,
-      title: '',
-      desc: '',
-      dueDate: new Date(),
-      status: 'pending'
-    };
-    const selectedTodo = null;
-
-    this.setState({
-      selectedTodo,
-      newTodo
-    });
-  }
-
-  _dataFiltering(status) {
-    const { data } = this.state;
-
-    const filteredData = data.filter( todo => todo.status === status);
-
-    return filteredData;
-  }
-
   _updateCTodo( todo = null ) {
     let { selectedTodo } = this.state;
 
@@ -107,42 +79,48 @@ class Todosfesa extends React.Component {
     this.setState({ selectedTodo });
   }
 
-  _updateNewTodo( todo = null) {
-    let { newTodo } = this.state;
+  _setNewTodo() {
+    const newTodo = {
+      id: shortId.generate(),
+      title: '',
+      desc: '',
+      dueDate: new Date(),
+      isNew: true
+    };
 
-    newTodo = todo;
-    this.setState({ newTodo });
+    this._updateCTodo(newTodo);
   }
 
   _addNewTodo() {
-    const { newTodo } = this.state;
-    const tempTodos =  [ ...this.state.data ];
-    const todoIndex = _componentHelper.getItemIndex(newTodo, tempTodos);
+    const tempNewTodo = { ...this.state.selectedTodo };
+    const data = [...this.state.data];
 
-    if (todoIndex === -1) {
-      tempTodos.push(newTodo);
-      this._updateData( tempTodos );
-    }
-    this.setState({newTodo: null});
+    delete tempNewTodo.isNew;
+    tempNewTodo.status = 'pending';
+
+    data.push(tempNewTodo);
+
+    this.setState({ data });
+
+    this.setState({ selectedTodo: data[ (data.length - 1) ] });
+    setData('todos', data);
   }
 
   render() {
 
-    const { _onClickTodoItemHandler, _dataFiltering, _createNewTodo, _updateCTodo, _updateTodos, _updateNewTodo, _addNewTodo, state } = this;
-    const { selectedTodo, newTodo } = state;
-
     return (
-      <div className="columns">
-        <div className="column">
-          <nav className="panel">
-            <a className="button is-primary" disabled={ newTodo } onClick={_createNewTodo}>+ Add Todo</a>
-          </nav>
-          <Todos todos={ _dataFiltering('pending') } todoType="pending" onClickTodoItemHandler={_onClickTodoItemHandler} />
-          <Todos todos={ _dataFiltering('completed') } todoType="completed" onClickTodoItemHandler={_onClickTodoItemHandler} />
+      <div>
+        <div className="block">
+          <a className="button is-primary" onClick={  this._setNewTodo } disabled={ (this.state.selectedTodo && 'isNew' in this.state.selectedTodo) ? true : false }>Add New</a>
         </div>
-        <div className="column">
-          { selectedTodo && <TodoDetailsBox currentTodo={selectedTodo} updateTodo={_updateCTodo} updateTodos={_updateTodos} /> }
-          { newTodo && <TodoNewTask currentTodo={newTodo} updateTodo={_updateNewTodo} updateTodos={_addNewTodo} /> }
+        <div className="columns">
+          <div className="column">
+            <Todos todos={this.state.data} todoType="pending" onClickTodoItemHandler={this._onClickTodoItemHandler} />
+            <Todos todos={this.state.data} todoType="completed" onClickTodoItemHandler={this._onClickTodoItemHandler} />
+          </div>
+          <div className="column">
+            {this.state.selectedTodo && <TodoDetailsBox addNewTodo={this._addNewTodo} currentTodo={ this.state.selectedTodo } updateTodo={ this._updateCTodo} updateTodos={ this._updateTodos } />}
+          </div>
         </div>
       </div>
     );

@@ -8,12 +8,12 @@ class Todos extends React.Component {
 
   render() {
 
-    const { onClickTodoItemHandler, todos, todoType } = this.props;
+    const { onClickTodoItemHandler } = this.props;
 
     return (
       <nav className="panel">
-        <p className="panel-heading todosfesa-panel-heading">{todoType}</p>
-        {todos.map( (item, index) => <TodoItem item={ item } key={index} onClickTodoItemHandler={onClickTodoItemHandler} />)}
+        <p className="panel-heading todosfesa-panel-heading">{ this.props.todoType }</p>
+        { this.props.todos.map( (item, index) => item.status === this.props.todoType ? <TodoItem item={ item } key={index} onClickTodoItemHandler={onClickTodoItemHandler} /> : null)}
       </nav>);
   }
 }

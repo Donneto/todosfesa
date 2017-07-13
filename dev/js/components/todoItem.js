@@ -3,7 +3,6 @@ import moment from 'moment';
 
 class TodoItem extends React.Component {
   constructor(props) {
-
     super(props);
 
     this.setMePlease = this.setMePlease.bind(this);

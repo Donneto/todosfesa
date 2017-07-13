@@ -31,15 +31,22 @@ const config = {
 				]
 			},
 			{
-				test: /\.(sass|scss)$/,
-				exclude: /(node_modules|bower_components)/,
-				use: ExtractTextPlugin.extract(['css-loader?minimize=true', 'sass-loader'])
-			},
-			{
 				enforce: "pre",
 				test: /\.js|jsx$/,
 				exclude: /(node_modules|bower_components)/,
 				loader: 'eslint-loader'
+			},
+			// {
+			// 	test: /\.css$/,
+			// 	exclude: /(node_modules|bower_components)/,
+			// 	use: ExtractTextPlugin.extract({
+			// 		use: 'css-loader?importLoaders=1&minimize=true',
+			// 	}),
+			// },
+			{
+				test: /\.(sass|scss)$/,
+				exclude: /(node_modules|bower_components)/,
+				use: ExtractTextPlugin.extract(['css-loader?minimize=true', 'sass-loader'])
 			}
 		]
 	},
