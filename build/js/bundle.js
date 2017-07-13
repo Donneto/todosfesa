@@ -13908,19 +13908,11 @@ module.exports = __webpack_require__(188);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
+/* WEBPACK VAR INJECTION */(function(React, ReactDom) {
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(22);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactDom = __webpack_require__(97);
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
 
 var _data = __webpack_require__(174);
 
@@ -14062,31 +14054,31 @@ var Todosfesa = function (_React$Component) {
     key: 'render',
     value: function render() {
 
-      return _react2.default.createElement(
+      return React.createElement(
         'div',
         null,
-        _react2.default.createElement(
+        React.createElement(
           'div',
           { className: 'block' },
-          _react2.default.createElement(
+          React.createElement(
             'a',
             { className: 'button is-primary', onClick: this._setNewTodo, disabled: this.state.selectedTodo && 'isNew' in this.state.selectedTodo ? true : false },
             'Add New'
           )
         ),
-        _react2.default.createElement(
+        React.createElement(
           'div',
           { className: 'columns' },
-          _react2.default.createElement(
+          React.createElement(
             'div',
             { className: 'column' },
-            _react2.default.createElement(_Todos2.default, { todos: this.state.data, todoType: 'pending', onClickTodoItemHandler: this._onClickTodoItemHandler }),
-            _react2.default.createElement(_Todos2.default, { todos: this.state.data, todoType: 'completed', onClickTodoItemHandler: this._onClickTodoItemHandler })
+            React.createElement(_Todos2.default, { todos: this.state.data, todoType: 'pending', onClickTodoItemHandler: this._onClickTodoItemHandler }),
+            React.createElement(_Todos2.default, { todos: this.state.data, todoType: 'completed', onClickTodoItemHandler: this._onClickTodoItemHandler })
           ),
-          _react2.default.createElement(
+          React.createElement(
             'div',
             { className: 'column' },
-            this.state.selectedTodo && _react2.default.createElement(_TodoDetailsBox2.default, { addNewTodo: this._addNewTodo, currentTodo: this.state.selectedTodo, updateTodo: this._updateCTodo, updateTodos: this._updateTodos })
+            this.state.selectedTodo && React.createElement(_TodoDetailsBox2.default, { addNewTodo: this._addNewTodo, currentTodo: this.state.selectedTodo, updateTodo: this._updateCTodo, updateTodos: this._updateTodos })
           )
         )
       );
@@ -14094,9 +14086,10 @@ var Todosfesa = function (_React$Component) {
   }]);
 
   return Todosfesa;
-}(_react2.default.Component);
+}(React.Component);
 
-_reactDom2.default.render(_react2.default.createElement(Todosfesa, null), document.getElementById('root'));
+ReactDom.render(React.createElement(Todosfesa, null), document.getElementById('root'));
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(22), __webpack_require__(97)))
 
 /***/ }),
 /* 82 */
@@ -26116,17 +26109,13 @@ module.exports = 0;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
+/* WEBPACK VAR INJECTION */(function(React) {
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(22);
-
-var _react2 = _interopRequireDefault(_react);
 
 var _TodoItem = __webpack_require__(184);
 
@@ -26150,49 +26139,46 @@ var Todos = function (_React$Component) {
   }
 
   _createClass(Todos, [{
-    key: 'render',
+    key: "render",
     value: function render() {
       var _this2 = this;
 
       var onClickTodoItemHandler = this.props.onClickTodoItemHandler;
 
 
-      return _react2.default.createElement(
-        'nav',
-        { className: 'panel' },
-        _react2.default.createElement(
-          'p',
-          { className: 'panel-heading todosfesa-panel-heading' },
+      return React.createElement(
+        "nav",
+        { className: "panel" },
+        React.createElement(
+          "p",
+          { className: "panel-heading todosfesa-panel-heading" },
           this.props.todoType
         ),
         this.props.todos.map(function (item, index) {
-          return item.status === _this2.props.todoType ? _react2.default.createElement(_TodoItem2.default, { item: item, key: index, onClickTodoItemHandler: onClickTodoItemHandler }) : null;
+          return item.status === _this2.props.todoType ? React.createElement(_TodoItem2.default, { item: item, key: index, onClickTodoItemHandler: onClickTodoItemHandler }) : null;
         })
       );
     }
   }]);
 
   return Todos;
-}(_react2.default.Component);
+}(React.Component);
 
 exports.default = Todos;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(22)))
 
 /***/ }),
 /* 184 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
+/* WEBPACK VAR INJECTION */(function(React) {
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(22);
-
-var _react2 = _interopRequireDefault(_react);
 
 var _moment = __webpack_require__(79);
 
@@ -26219,32 +26205,32 @@ var TodoItem = function (_React$Component) {
   }
 
   _createClass(TodoItem, [{
-    key: 'setMePlease',
+    key: "setMePlease",
     value: function setMePlease(e) {
       e.preventDefault();
 
       this.props.onClickTodoItemHandler(this.props.item);
     }
   }, {
-    key: 'render',
+    key: "render",
     value: function render() {
       var _this2 = this;
 
-      return _react2.default.createElement(
-        'a',
-        { className: 'panel-block', onClick: function onClick(e) {
+      return React.createElement(
+        "a",
+        { className: "panel-block", onClick: function onClick(e) {
             return _this2.setMePlease(e);
           } },
-        _react2.default.createElement(
-          'b',
+        React.createElement(
+          "b",
           null,
           this.props.item.title
         ),
-        ' - ',
-        _react2.default.createElement(
-          'small',
-          { className: 'is-left' },
-          ' Due: ',
+        " - ",
+        React.createElement(
+          "small",
+          { className: "is-left" },
+          " Due: ",
           (0, _moment2.default)(this.props.item.dueDate).format('dddd, MMMM Do, YYYY')
         )
       );
@@ -26252,9 +26238,10 @@ var TodoItem = function (_React$Component) {
   }]);
 
   return TodoItem;
-}(_react2.default.Component);
+}(React.Component);
 
 exports.default = TodoItem;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(22)))
 
 /***/ }),
 /* 185 */
@@ -26289,7 +26276,7 @@ module.exports = function(module) {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
+/* WEBPACK VAR INJECTION */(function(React) {
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -26298,10 +26285,6 @@ Object.defineProperty(exports, "__esModule", {
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(22);
-
-var _react2 = _interopRequireDefault(_react);
 
 var _moment = __webpack_require__(79);
 
@@ -26368,89 +26351,97 @@ var TodoDetailsBox = function (_React$Component) {
     value: function sendNewTodo(e) {
       e.preventDefault();
 
+      if (this.titleInput.value === '') {
+        this.titleInput.classList.add('is-danger');
+
+        return false;
+      }
+
       this.props.addNewTodo();
+
+      return true;
     }
   }, {
     key: 'render',
     value: function render() {
       var _this2 = this;
 
-      return _react2.default.createElement(
+      return React.createElement(
         'div',
         { className: 'box' },
-        _react2.default.createElement(
+        React.createElement(
           'form',
           { action: '', onSubmit: this.submitForm },
-          _react2.default.createElement(
+          React.createElement(
             'div',
             { className: 'field' },
-            _react2.default.createElement(
+            React.createElement(
               'label',
               { className: 'label' },
               'Title:'
             ),
-            _react2.default.createElement(
+            React.createElement(
               'p',
               { className: 'control' },
-              _react2.default.createElement('input', { className: 'input', disabled: this.props.currentTodo.status === 'completed', required: true, type: 'text', name: 'title', placeholder: 'Text input', value: this.props.currentTodo.title, onChange: function onChange(e) {
+              React.createElement('input', { className: 'input', disabled: this.props.currentTodo.status === 'completed', required: true, type: 'text', name: 'title', placeholder: 'Text input', value: this.props.currentTodo.title, onChange: function onChange(e) {
                   _this2.updateProps(e, _this2.props.currentTodo);
                 }, ref: function ref(input) {
                   _this2.titleInput = input;
                 } })
             )
           ),
-          _react2.default.createElement(
+          React.createElement(
             'div',
             { className: 'field' },
-            _react2.default.createElement(
+            React.createElement(
               'label',
               { className: 'label' },
               'Due Date:'
             ),
-            _react2.default.createElement(
+            React.createElement(
               'p',
               { className: 'control' },
-              _react2.default.createElement('input', { className: 'input', disabled: this.props.currentTodo.status === 'completed', type: 'date', name: 'dueDate', placeholder: 'Text input', min: dateFormat(new Date()), value: dateFormat(this.props.currentTodo.dueDate), onChange: function onChange(e) {
+              React.createElement('input', { className: 'input', disabled: this.props.currentTodo.status === 'completed', type: 'date', name: 'dueDate', placeholder: 'Text input', min: dateFormat(new Date()), value: dateFormat(this.props.currentTodo.dueDate), onChange: function onChange(e) {
                   _this2.updateProps(e);
                 }, ref: function ref(input) {
                   _this2.dueDateInput = input;
                 } })
             )
           ),
-          _react2.default.createElement(
+          React.createElement(
             'div',
             { className: 'field' },
-            _react2.default.createElement(
+            React.createElement(
               'label',
               { className: 'label' },
               'Description:'
             ),
-            _react2.default.createElement(
+            React.createElement(
               'p',
               { className: 'control' },
-              _react2.default.createElement('textarea', { className: 'textarea', disabled: this.props.currentTodo.status === 'completed', name: 'desc', placeholder: 'Textarea', value: this.props.currentTodo.desc, onChange: function onChange(e) {
+              React.createElement('textarea', { className: 'textarea', disabled: this.props.currentTodo.status === 'completed', name: 'desc', placeholder: 'Textarea', value: this.props.currentTodo.desc, onChange: function onChange(e) {
                   _this2.updateProps(e);
                 }, ref: function ref(input) {
                   _this2.descInput = input;
                 } })
             )
           ),
-          _react2.default.createElement(
+          React.createElement(
             'div',
             { className: 'field is-grouped' },
-            _react2.default.createElement(
+            React.createElement(
               'p',
               { className: 'control ' + (this.props.currentTodo.isNew ? 'is-hidden' : '') },
-              _react2.default.createElement(
+              React.createElement(
                 'button',
                 { className: 'button is-primary', disabled: this.props.currentTodo.status === 'completed' },
                 'Save'
               )
             ),
-            _react2.default.createElement(
+            React.createElement(
               'p',
               { className: 'control ' + (this.props.currentTodo.isNew ? 'is-hidden' : '') },
-              _react2.default.createElement(
+              React.createElement(
                 'button',
                 { className: 'button is-primary', disabled: this.props.currentTodo.status === 'completed', onClick: function onClick(e) {
                     return _this2.setCompleted(e);
@@ -26458,10 +26449,10 @@ var TodoDetailsBox = function (_React$Component) {
                 'Complete'
               )
             ),
-            _react2.default.createElement(
+            React.createElement(
               'p',
               { className: 'control ' + (!this.props.currentTodo.isNew ? 'is-hidden' : '') },
-              _react2.default.createElement(
+              React.createElement(
                 'button',
                 { className: 'button is-primary', onClick: function onClick(e) {
                     return _this2.sendNewTodo(e);
@@ -26476,9 +26467,10 @@ var TodoDetailsBox = function (_React$Component) {
   }]);
 
   return TodoDetailsBox;
-}(_react2.default.Component);
+}(React.Component);
 
 exports.default = TodoDetailsBox;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(22)))
 
 /***/ }),
 /* 187 */

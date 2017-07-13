@@ -1,4 +1,3 @@
-import React from 'react';
 import TodoForm from './TodoForm';
 
 class TodoNewTask extends React.Component {

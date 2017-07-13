@@ -1,4 +1,3 @@
-import React from 'react';
 import moment from 'moment';
 
 class TodoItem extends React.Component {

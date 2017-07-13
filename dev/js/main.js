@@ -1,5 +1,5 @@
-import React from 'react';
-import ReactDom from 'react-dom';
+// import React from 'react';
+// import ReactDom from 'react-dom';
 import { getData, setData } from './model/data';
 import shortId from 'shortid';
 

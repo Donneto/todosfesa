@@ -1,4 +1,8 @@
 {
+  "globals" :{
+    "React": true,
+    "ReactDom": true
+  },
   "env": {
     "browser": true,
     "commonjs": true,

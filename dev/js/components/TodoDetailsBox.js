@@ -1,4 +1,3 @@
-import React from 'react';
 import moment from 'moment';
 
 const dateFormat = date => moment(date).format('YYYY-MM-DD');
@@ -43,7 +42,15 @@ class TodoDetailsBox extends React.Component {
   sendNewTodo(e) {
     e.preventDefault();
 
+    if (this.titleInput.value === '') {
+      this.titleInput.classList.add('is-danger');
+
+      return false;
+    }
+
     this.props.addNewTodo();
+
+    return true;
   }
 
   render() {

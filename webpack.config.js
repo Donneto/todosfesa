@@ -73,6 +73,10 @@ const config = {
 				'NODE_ENV': JSON.stringify('production')
 			}
 		}),
+		new webpack.ProvidePlugin({
+      		React: 'react',
+      		ReactDom: 'react-dom'
+		}),
 		new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
 		new ExtractTextPlugin({
 			filename: '../css/master.css',
